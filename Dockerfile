@@ -61,6 +61,11 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   # Clean up all the downloaded files
   && rm -rf /tmp/mq
 
+RUN useradd admin -G mqm \
+  && groupadd mqclient \
+  && useradd app -G mqclient \
+  && echo admin:passw0rd | chpasswd
+
 COPY *.sh /usr/local/bin/
 COPY *.mqsc /etc/mqm/
 
